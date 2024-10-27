@@ -1,28 +1,20 @@
 {
   "employees": [
     {
-      "id": "1",
-      "name": "Илья Емельянов",
-      "isArchive": false,
-      "role": "driver",
-      "phone": "+7 (883) 508-3269",
-      "birthday": "12.02.1982"
-    },
-    {
-      "id": "2",
       "name": "Александр Ларионов",
+      "role": "Официант",
+      "phone": "+7(823)4403602",
+      "birthday": "06.01.1986",
       "isArchive": true,
-      "role": "waiter",
-      "phone": "+7 (823) 440-3602",
-      "birthday": "26.01.1986"
+      "id": "2"
     },
     {
-      "id": "3",
       "name": "Богдан Давыдов",
-      "isArchive": false,
-      "role": "driver",
-      "phone": "+7 (971) 575-2645",
-      "birthday": "29.11.1990"
+      "role": "Водитель",
+      "phone": "+7(971)5752645",
+      "birthday": "01.10.2024",
+      "isArchive": true,
+      "id": "3"
     },
     {
       "id": "4",
@@ -135,14 +127,6 @@
       "role": "waiter",
       "phone": "+7 (877) 450-3253",
       "birthday": "03.12.1994"
-    },
-    {
-      "id": "6c8d",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "02.10.2024",
-      "isArchive": false
     }
   ]
 }

@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { EmployeeRole, IEmployee } from '../../types/Employee/Employee';
 import { API_URL } from './base';
 import { convertDate } from '../../helpers/convertDate/convertDate';
+import { FormDataPayload } from '../../components/EmployeeForm/EmployeeForm';
 
 
 export const transformEmployeesRole = (employee: IEmployee): IEmployee => {
@@ -52,7 +53,7 @@ export const apiSlice = createApi({
             },
             invalidatesTags: ['employee']
         }),
-        addEmployee: builder.mutation<IEmployee, any>({
+        addEmployee: builder.mutation<IEmployee, FormDataPayload>({
             query: ({body}) => {
                 return {
                     url: '/employees',
@@ -62,9 +63,8 @@ export const apiSlice = createApi({
             },
             invalidatesTags: ['employee']
         }),
-        updateEmployee: builder.mutation<any, any>({
-            query(data) {
-                const { id, body } = data
+        updateEmployee: builder.mutation<IEmployee, FormDataPayload>({
+            query({id, body}) {
                 return {
                   url: `employees/${id}`,
                   method: 'PUT',

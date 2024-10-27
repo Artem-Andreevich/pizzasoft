@@ -1,9 +1,10 @@
 import { useGetEmployeesQuery } from "../../store/api/api";
 import { useState, useEffect, useCallback } from "react";
-import { IEmployee } from "../../types/Employee/Employee";
+import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { Employee } from "../Employee/Employee";
 import { classNames } from "../../helpers/classNames/classNames";
 import cls from "./EmployeesList.module.scss"
+import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
 
 
 interface EmployeesListProps {
@@ -12,33 +13,24 @@ interface EmployeesListProps {
 
 export const EmployeesList = ({className = ""}: EmployeesListProps) => {
 
-    const { data = [] , isLoading, isSuccess, isError, isFetching} = useGetEmployeesQuery()
-
-    const [ employees, setEmployees ] = useState<IEmployee[]>([]);
-    const [ filteredEmployees, setFilteredEmployees ] = useState<IEmployee[]>([]);
-    const [ isArchive, setIsArchive ] = useState();
-    const [ roleFilter, setRoleFilter ] = useState();
+    const { data = [] , isLoading, isSuccess, isError } = useGetEmployeesQuery()
+    const [ employees, setEmployees ] = useState<IEmployee[]>([])
+    const [ filteredEmployees, setFilteredEmployees ] = useState<IEmployee[]>([])
+    const [ isArchive, setIsArchive ] = useState()
+    const [ roleFilter, setRoleFilter ] = useState()
 
     useEffect( () => {
         setEmployees(data)
-    }, [isSuccess])
-
+    }, [isSuccess, data])
 
     useEffect(() => {
-        let filtered = employees;
-        if (isArchive) {
-            filtered = filtered?.filter(employee => employee.isArchive === true);
-        }
-        if (roleFilter) {
-            filtered = filtered?.filter(employee => employee.role === roleFilter);
-        }
-    
-        setFilteredEmployees(filtered);
-      }, [ employees, isArchive, roleFilter ]);
-
-
-
-
+        let filtered = employees
+        if (isArchive) 
+            filtered = filtered?.filter(employee => employee.isArchive === true)
+        if (roleFilter) 
+            filtered = filtered?.filter(employee => employee.role === roleFilter)
+        setFilteredEmployees(filtered)
+      }, [ employees, isArchive, roleFilter ])
 
     const sortedEmployeeName = useCallback(() => {
         setFilteredEmployees([...filteredEmployees].sort((a, b) => a.name > b.name ? 1 : -1))
@@ -46,8 +38,6 @@ export const EmployeesList = ({className = ""}: EmployeesListProps) => {
     const sortedEmployeeDate = useCallback(() => {
         setFilteredEmployees([...filteredEmployees].sort((a, b) => b.birthday.localeCompare(a.birthday)))
     }, [filteredEmployees])
-
-
 
     let content: React.ReactNode
     if (isLoading)
@@ -67,9 +57,15 @@ export const EmployeesList = ({className = ""}: EmployeesListProps) => {
             </label>
 
             <select onChange={ (e: any) => {setRoleFilter(e.target.value)}}>
-                <option value="">Все </option>
-                <option value="Водитель">Водитель</option>
-                <option value="Повар">Повар</option>
+                <option value="">Все</option>
+                    {getEnumValues(EmployeeRoleRu).map( value => (
+                        <option 
+                            key={value} 
+                            value={value}
+                        >
+                            {value}
+                        </option>
+                    ))}
             </select>
             {content}
         </div>

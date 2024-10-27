@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AddEmployee } from "../components/AddEmployee/AddEmployee";
+import { AddEmployee } from "../../components/AddEmployee/AddEmployee";
 
 
 export const CreatePage = () => {

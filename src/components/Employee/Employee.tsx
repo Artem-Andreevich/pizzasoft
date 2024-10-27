@@ -24,7 +24,6 @@ export const Employee = (props: EmployeeProps) => {
             <span>{employee.name}</span>
             <span>{employee.role}</span>
             <span>{employee.phone}</span>
-            <span>{employee.birthday}</span>
         </Link>
     )
 }

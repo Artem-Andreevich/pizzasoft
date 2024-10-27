@@ -1,4 +1,3 @@
-export * from "./AboutPage";
-export * from "./MainPage";
-export * from "./CreatePage";
-export * from "./EditPage";
+export * from "./mainPage/MainPage";
+export * from "./createPage/CreatePage";
+export * from "./editPage/EditPage";

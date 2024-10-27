@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { UpdateEmployee } from "../components/UpdateEmployee/UpdateEmployee";
+import { UpdateEmployee } from "../../components/UpdateEmployee/UpdateEmployee";
 
 
 
