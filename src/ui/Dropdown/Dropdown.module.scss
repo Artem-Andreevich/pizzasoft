@@ -1,0 +1,36 @@
+:root {
+    --dropdown-button-height: 40px;
+}
+
+.dropdown {
+    position: relative;
+    width: fit-content;
+    height: var(--dropdown-button-height);
+}
+.dropdownContent {
+    position: absolute;
+    top: var(--dropdown-button-height);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: var(--border-radius-main);
+    background-color: #fff; 
+    box-shadow: var(--shadow);
+    z-index: 10;
+    &:not(.shown) {
+        display: none;
+    }
+}
+.dropdownButton {
+    background-color: #333;
+    color: #fff;
+    height: 100%;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-main);
+    cursor: pointer;
+}

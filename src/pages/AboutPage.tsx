@@ -1,14 +1,25 @@
 import { Link, useParams } from "react-router-dom";
-import { useGetEmployeeByIdQuery } from "../store/api/api";
+import { useDeleteEmployeeMutation, useGetEmployeeByIdQuery } from "../store/api/api";
+import { Employee } from "../components/Employee/Employee";
+import { useNavigate } from "react-router-dom";
 
 
 export const AboutPage = () => {
 
-    const {id} = useParams()
-    const { data, isLoading } = useGetEmployeeByIdQuery(Number(id))
+    const { id = ''} = useParams()
+    const navigate = useNavigate();
+    const { data, isLoading, isSuccess } = useGetEmployeeByIdQuery(id)
+    const [ deleteEmployee, { isSuccess: deleted } ] = useDeleteEmployeeMutation()
 
-    if (!isLoading) {
-        console.log(data)
+
+    const deleteHandler = (id: string) => {
+        try {
+            deleteEmployee(id)
+        } catch (err) {
+            console.error('Ошибка', err)
+        } finally {
+            navigate(`/`)
+        }
     }
 
     return (
@@ -16,13 +27,16 @@ export const AboutPage = () => {
             <div className='container'>
                 <Link to="/">Главная</Link>
                 <div>
-                    {isLoading 
+                    {isLoading
                         ? <div>Загрузка...</div> 
-                        : <div>
-                            <p>{data?.name}</p>
-                            <p>{data?.phone}</p>
-                            <p>{data?.birthday}</p>
-                        </div>
+                        : <>
+                            {data 
+                                ? <Employee employee={data}/> 
+                                : <div>Ошибка</div>
+                            }
+                            <button onClick={() => deleteHandler(id)}>Удалить</button>
+                            <Link to={`/edit/${id}`}>Редактировать</Link>
+                        </>
                     }
                 </div>
             </div>

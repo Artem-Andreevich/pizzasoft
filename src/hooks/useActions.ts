@@ -1,11 +1,13 @@
 import { useMemo } from "react"
 import { bindActionCreators } from "redux"
-// import { addProduct, removeProduct } from "../store/cart/cart.slice"
+import { sortingByName, sortingByBirthday, filteredByRole } from "../store/emloyeeSlice/emloyee.slice"
+
 import { useAppDispatch } from "./useAppDispatch"
 
 const rootActions = {
-    // addProduct,
-    // removeProduct,
+    sortingByName,
+    filteredByRole,
+    sortingByBirthday,
 }
 
 export const useActions = () => {

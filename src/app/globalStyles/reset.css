@@ -67,7 +67,7 @@
   }
   
   body {
-    background: #fff;
+    background: var(--body-bg-color);
     font-family: "Montserrat", sans-serif;
     font-size: var(--16-text);
     min-width: 320px;
