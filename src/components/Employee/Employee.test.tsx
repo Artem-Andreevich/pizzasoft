@@ -1,4 +1,5 @@
-import { render, fireEvent } from "@testing-library/react"
+import '@testing-library/jest-dom'
+import { render, fireEvent, screen } from "@testing-library/react"
 import { BrowserRouter } from 'react-router-dom'
 import { Employee } from "./Employee"
 
@@ -18,37 +19,39 @@ describe("Employee", () => {
                 <Employee employee={mockEmployee} />
             </BrowserRouter>
         )
+        expect(component).toBeInTheDocument
         expect(component).toMatchSnapshot()
     })
 
     it("Передали внешний className", () => {
-        const component = render(
+        render(
             <BrowserRouter>
                 <Employee employee={mockEmployee} className="mockClassName"/>
             </BrowserRouter>
         )
-        const employee = component.container.querySelector(".employee-item") as HTMLLinkElement
-        expect(employee.classList.contains("mockClassName")).toBeTruthy()
+        const employee = screen.getByRole("link")
+        expect(employee).toHaveClass("mockClassName")
+
     })
 
     it("Employee в архиве (isArchive = true)", () => {
         mockEmployee.isArchive = true
-        const component = render(
+        render(
             <BrowserRouter>
                 <Employee employee={mockEmployee}/>
             </BrowserRouter>
         )
-        const employee = component.container.querySelector(".employee-item") as HTMLLinkElement
-        expect(employee.classList.contains("is-archive")).toBeTruthy()
+        const employee = screen.getByRole("link")
+        expect(employee).toHaveClass("is-archive")
     })
 
     it("Click по Employee", () => {
-        const component = render(
+        render(
             <BrowserRouter>
                 <Employee employee={mockEmployee}/>
             </BrowserRouter>
         )
-        const employee = component.container.querySelector(".employee-item") as HTMLLinkElement
+        const employee = screen.getByRole("link")
         fireEvent.click(employee)
         expect(window.location.pathname).toEqual(`/edit/${mockEmployee.id}`);
     })
