@@ -16,8 +16,8 @@ export const EmployeesList = ({className = ""}: EmployeesListProps) => {
     const { data = [] , isLoading, isSuccess, isError } = useGetEmployeesQuery()
     const [ employees, setEmployees ] = useState<IEmployee[]>([])
     const [ filteredEmployees, setFilteredEmployees ] = useState<IEmployee[]>([])
-    const [ isArchive, setIsArchive ] = useState()
-    const [ roleFilter, setRoleFilter ] = useState()
+    const [ isArchive, setIsArchive ] = useState<Boolean>()
+    const [ roleFilter, setRoleFilter ] = useState<EmployeeRoleRu>()
 
     useEffect( () => {
         setEmployees(data)
