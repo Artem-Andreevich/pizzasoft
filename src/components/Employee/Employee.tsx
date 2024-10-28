@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import { IEmployee } from "../../types/Employee/Employee";
-import { classNames} from "../../helpers/classNames/classNames"
-import cls from "./Employee.module.scss"
+import classNames from "classnames";
 
 interface EmployeeProps {
     className?: string;
@@ -18,7 +17,7 @@ export const Employee = (props: EmployeeProps) => {
 
     return (
         <Link 
-            className={classNames(cls.Employee, {[cls.archive]: employee.isArchive}, [className])}
+            className={classNames("employee-item", className, {"is-archive": employee.isArchive})}
             to={`/edit/${employee.id}`}
         >
             <span>{employee.name}</span>

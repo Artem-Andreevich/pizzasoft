@@ -1,36 +1,28 @@
 {
   "employees": [
     {
-      "name": "Александр Ларионов",
-      "role": "Официант",
-      "phone": "+7(823)4403602",
-      "birthday": "06.01.1986",
-      "isArchive": true,
-      "id": "2"
-    },
-    {
       "name": "Богдан Давыдов",
       "role": "Водитель",
       "phone": "+7(971)5752645",
       "birthday": "01.10.2024",
-      "isArchive": true,
+      "isArchive": false,
       "id": "3"
     },
     {
-      "id": "4",
       "name": "Олимпиада Макарова",
-      "isArchive": true,
-      "role": "waiter",
-      "phone": "+7 (945) 447-2286",
-      "birthday": "06.01.1987"
+      "role": "Водитель",
+      "phone": "+7(945)4472286",
+      "birthday": "06.01.1987",
+      "isArchive": false,
+      "id": "4"
     },
     {
-      "id": "5",
       "name": "Алла Котова",
-      "isArchive": false,
-      "role": "cook",
-      "phone": "+7 (948) 523-2964",
-      "birthday": "26.01.1982"
+      "role": "Повар",
+      "phone": "+7(948)5232964",
+      "birthday": "26.01.1982",
+      "isArchive": true,
+      "id": "5"
     },
     {
       "id": "6",

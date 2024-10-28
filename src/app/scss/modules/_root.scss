@@ -1,0 +1,125 @@
+:root {
+	scroll-behavior: inherit;
+	--bs-gutter-x: 20px;
+	
+	--fs-72-32: 4.5rem;
+	--fs-72-24: var(--fs-72-32);
+	--fs-48-24: 3rem;
+	--fs-48-sm-18: var(--fs-48-24);
+	--fs-48-xs-18: var(--fs-48-24);
+	--fs-36-24: 2.25rem;
+	--fs-36-sm-18: var(--fs-36-24);
+	--fs-32-24: 2rem;
+	--fs-32-sm-18: var(--fs-32-24);
+	--fs-32-sm-16: var(--fs-32-24);
+	--fs-24-18: 1.5rem;
+	--fs-24-lg-16: var(--fs-24-18);
+	--fs-24-sm-16: var(--fs-24-18);
+	--fs-18-16: 1.125rem;
+	--fs-18-14: var(--fs-18-16);
+	--fs-16-14: 1rem;
+	--fs-16-sm-12: var(--fs-16-14);
+	--fs-16-xs-12: var(--fs-16-14);
+	--fs-16-sm-10: var(--fs-16-14);
+	--fs-16-xs-10: var(--fs-16-14);
+	--fs-14-12: 0.875rem;
+	--fs-14-sm-10: var(--fs-14-12);
+	--fs-14-xs-10: var(--fs-14-12);
+
+	--size-60-50: 60px;
+	--size-60-40: 60px;
+	--size-50-40: 50px;
+	--size-50-30: 50px;
+	--size-40-30: 40px;
+	--size-30-25: 30px;
+
+	--border-radius-24: 24px;
+	--border-radius-18: 18px;
+	--border-radius-16: 16px;
+	--border-radius-8: 8px;
+
+	--page-gap: 60px;
+	--page-gap-px: 60;
+	--header-height: 60px;
+	--employees-list-width: 700px;
+	
+
+	--main-color: #2BAEF0;
+	--main-color-hover: #0095E0;
+	--accent-color: #86C900;
+	--accent-color-hover: #77B300;
+	--dark-grey: #83827F;
+	--light-grey: #E3E1DB;
+	--middle-black: #1A1A1A;
+	--second-color: #eae9e5;
+	--second-light-color: #f7f6f3;
+	--text-color: #000;
+	--body-bg-color: #e2ecfa;
+	--shadow: 2px 2px 10px 0px rgba(0,0,0,.1);
+}
+
+@include breakpoint(xxl) {
+	:root {
+        --fs-72-32: 3rem;
+        --fs-48-24: 2.25rem;
+        --fs-36-24: 2rem;
+        --fs-32-24: 1.875rem;
+	}
+}
+@include breakpoint(xl) {
+	:root {
+        --fs-72-32: 2.625rem;
+        --fs-36-24: 1.5rem;
+        --fs-32-24: 1.5rem;
+        --fs-24-18: 1.375rem;
+        --fs-16-14: 0.875rem;
+        --fs-14-12: 0.75rem;
+		--page-gap: 40px;
+
+	}
+}
+@include breakpoint(lg) {
+	:root {
+        --fs-72-32: 2.25rem;
+        --fs-48-24: 2rem;
+        --fs-24-18: 1.125rem;
+        --fs-24-lg-16: 1rem;
+        --fs-18-16: 1rem;
+        --fs-18-14: 0.875rem;
+        --size-60-50: 50px;
+        --size-60-40: 40px;
+        --size-50-40: 40px;
+        --size-50-30: 30px;
+        --size-40-30: 30px;
+        --size-30-25: 25px;
+	}
+}
+@include breakpoint(md) {
+	:root {
+        --fs-72-32: 2rem;
+        --fs-48-24: 1.5rem;
+		--page-gap: 24px;
+	}
+}
+@include breakpoint(sm) {
+	:root {
+        --fs-72-24: 1.5rem;
+        --fs-48-sm-18: 1.125rem;
+        --fs-36-sm-18: 1.125rem;
+        --fs-32-sm-18: 1.125rem;
+        --fs-32-sm-16: 1rem;
+        --fs-24-sm-16: 1rem;
+        --fs-16-sm-12: 0.75rem;
+        --fs-16-sm-10: 0.625rem;
+        --fs-14-sm-10: 0.625rem;
+	}
+}
+@include breakpoint(xs) {
+	:root {
+        --bs-gutter-x: 15px;
+        --fs-48-xs-18: 1.125rem;
+        --fs-16-xs-12: 0.75rem;
+        --fs-16-xs-10: 0.625rem;
+        --fs-14-xs-10: 0.625rem;
+	}
+}

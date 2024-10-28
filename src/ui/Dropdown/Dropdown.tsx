@@ -1,6 +1,5 @@
+import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import { classNames } from "../../helpers/classNames/classNames";
-import cls from "./Dropdown.module.scss"
 
 interface DropdownProps {
     title: string;
@@ -31,18 +30,18 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
 
     return (
         <div 
-            className={classNames(cls.dropdown, {}, [className])} 
+            className={classNames("dropdown", className)} 
             ref={scope}
         >
             <button
-                className={classNames(cls.dropdownButton, {[cls.active] : open})}
+                className={classNames("btn-cta btn-cta--main", "dropdown__toggle", {"open": open})}
                 onClick={() => setOpen(!open)}
             >
                 <span>{title}</span>
             </button>
 
             <div 
-                className={classNames(cls.dropdownContent, {[cls.shown] : open})}
+                className={classNames("dropdown__content", {"shown": open})}
                 onClick={() => setOpen(false)}
             >
                 {children}   

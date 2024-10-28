@@ -2,9 +2,9 @@ import { useGetEmployeesQuery } from "../../store/api/api";
 import { useState, useEffect, useCallback } from "react";
 import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { Employee } from "../Employee/Employee";
-import { classNames } from "../../helpers/classNames/classNames";
-import cls from "./EmployeesList.module.scss"
 import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
+import { Dropdown } from "../../ui/Dropdown";
+import classNames from "classnames";
 
 
 interface EmployeesListProps {
@@ -48,26 +48,42 @@ export const EmployeesList = ({className = ""}: EmployeesListProps) => {
         content = <div>Ошибка получение данных...</div> 
     
     return (
-        <div className={classNames(cls.EmployeesList, {}, [className])}>
-            <button onClick={sortedEmployeeName}>Name</button>
-            <button onClick={sortedEmployeeDate}>Date</button>
-            <label>
-                <span>Archive</span>
-                <input type="checkbox" onChange={(e: any) => {setIsArchive(e.target.checked)}}  />
-            </label>
+        <div className={classNames("employees-list", className)}>
 
-            <select onChange={ (e: any) => {setRoleFilter(e.target.value)}}>
-                <option value="">Все</option>
-                    {getEnumValues(EmployeeRoleRu).map( value => (
-                        <option 
-                            key={value} 
-                            value={value}
-                        >
-                            {value}
-                        </option>
-                    ))}
-            </select>
-            {content}
+            <div className={classNames("employees-list__filters")}>
+                <Dropdown title="Сортировка">
+                    <button className="btn-cta btn-cta--clear" onClick={sortedEmployeeName}>Сортировать по имени</button>
+                    <button className="btn-cta btn-cta--clear" onClick={sortedEmployeeDate}>Сортировать по дате</button>
+                </Dropdown>
+
+                <div className="form-control">
+                    <select  onChange={ (e: any) => {setRoleFilter(e.target.value)}}>
+                        <option value="">Должность</option>
+                            {getEnumValues(EmployeeRoleRu).map( value => (
+                                <option 
+                                    key={value} 
+                                    value={value}
+                                >
+                                    {value}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+
+                <label className="page__checkbox">
+                    <input type="checkbox" onChange={(e: any) => {setIsArchive(e.target.checked)}} />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 0.253167 0.253167">
+                        <rect fill="#ED4300" width="0.253167" height="0.253167" rx="0.0506327" ry="0.0506327"></rect>
+                        <polyline fill="none" stroke="white" strokeWidth="0.0253182" strokeLinecap="round" strokeLinejoin="round" points="0.177213,0.0885956 0.113921,0.151887 0.0759509,0.113914 "></polyline>
+                    </svg>
+                    <span>В архиве</span>
+                </label>
+
+            </div>
+
+            <div className={classNames("employees-list__items")}>
+                {content}
+            </div>
         </div>
     )
 };

@@ -1,0 +1,34 @@
+@mixin breakpoint($point) {
+	@if $point == xs {
+	  	@media (max-width: $xs-break) and (min-width: 0px) { @content; }
+	}
+	@else if $point == sm {
+	  	@media (max-width: $sm-break) and (min-width: 0px) { @content; }
+	}
+	@else if $point == md {
+	  	@media (max-width: $md-break) and (min-width: 0px) { @content; }
+	}
+	@else if $point == lg {
+		@media (max-width: $lg-break) and (min-width: 0px) { @content; }
+	}
+	@else if $point == xl {
+		@media (max-width: $xl-break) and (min-width: 0px) { @content; }
+	}
+	@else if $point == xxl {
+		@media (max-width: $xxl-break) and (min-width: 0px) { @content; }
+	}
+};
+
+@mixin hover() {
+	@media ( hover : hover ) {
+		&:hover {
+			@content
+		}
+	}
+};
+
+@function space($gap){
+	@return calc(var(--page-gap) / (var(--page-gap-px) / $gap))
+}
+
+

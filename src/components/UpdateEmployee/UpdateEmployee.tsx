@@ -28,7 +28,10 @@ export const UpdateEmployee = () => {
                 ? <EmployeeForm action={updateEmployee} isLoading={isLoading} employee={employee} />
                 : <div>Не могу найти такого сотрудника</div>
             }
-            <button onClick={() => deleteHandler(id)}>Удалить</button>
+            <button 
+                className="btn-cta btn-cta--main"
+                onClick={() => deleteHandler(id)}
+            >Удалить</button>
         </>
     )
 }
