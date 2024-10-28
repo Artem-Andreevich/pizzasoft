@@ -26,12 +26,11 @@ describe("Employee", () => {
     it("Передали внешний className", () => {
         render(
             <BrowserRouter>
-                <Employee employee={mockEmployee} className="mockClassName"/>
+                <Employee employee={mockEmployee} className={"mockClassName"}/>
             </BrowserRouter>
         )
         const employee = screen.getByRole("link")
         expect(employee).toHaveClass("mockClassName")
-
     })
 
     it("Employee в архиве (isArchive = true)", () => {
