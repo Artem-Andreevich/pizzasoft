@@ -1,28 +1,76 @@
 {
   "employees": [
     {
-      "name": "Пелагея Морозова",
+      "name": "Богдан Давыдов",
       "role": "Водитель",
-      "phone": "+7(977)5213479",
-      "birthday": "11.09.1981",
+      "phone": "+7 (971) 575-2643",
+      "birthday": "29.11.1990",
       "isArchive": false,
-      "id": "8"
+      "id": "3"
+    },
+    {
+      "id": "4",
+      "name": "Олимпиада Макарова",
+      "isArchive": true,
+      "role": "waiter",
+      "phone": "+7 (945) 447-2286",
+      "birthday": "06.01.1987"
+    },
+    {
+      "id": "5",
+      "name": "Алла Котова",
+      "isArchive": false,
+      "role": "cook",
+      "phone": "+7 (948) 523-2964",
+      "birthday": "26.01.1982"
+    },
+    {
+      "id": "6",
+      "name": "Кира Колесникова",
+      "isArchive": true,
+      "role": "cook",
+      "phone": "+7 (929) 592-3637",
+      "birthday": "25.02.1972"
+    },
+    {
+      "id": "7",
+      "name": "Александр Третьяков",
+      "isArchive": false,
+      "role": "driver",
+      "phone": "+7 (872) 568-2916",
+      "birthday": "31.05.1979"
+    },
+    {
+      "id": "8",
+      "name": "Пелагея Морозова",
+      "isArchive": false,
+      "role": "driver",
+      "phone": "+7 (977) 521-3479",
+      "birthday": "11.09.1981"
     },
     {
       "name": "Агафон Громов",
-      "role": "Официант",
+      "role": "Водитель",
       "phone": "+7(868)5693159",
       "birthday": "07.06.1988",
       "isArchive": false,
       "id": "9"
     },
     {
-      "name": "Валерий Пестов",
-      "role": "Официант",
-      "phone": "+7(899)4032387",
-      "birthday": "20.01.1987",
+      "id": "10",
+      "name": "Владлен Тетерин",
       "isArchive": true,
-      "id": "11"
+      "role": "driver",
+      "phone": "+7 (808) 592-2480",
+      "birthday": "20.06.1978"
+    },
+    {
+      "id": "11",
+      "name": "Валерий Пестов",
+      "isArchive": false,
+      "role": "cook",
+      "phone": "+7 (899) 403-2387",
+      "birthday": "20.01.1987"
     },
     {
       "id": "12",
@@ -41,6 +89,14 @@
       "birthday": "16.12.1972"
     },
     {
+      "id": "14",
+      "name": "Пантелеймон Ефимов",
+      "isArchive": true,
+      "role": "cook",
+      "phone": "+7 (807) 492-3627",
+      "birthday": "17.04.1986"
+    },
+    {
       "id": "15",
       "name": "Иванна Калашникова",
       "isArchive": true,
@@ -57,372 +113,12 @@
       "birthday": "07.06.1983"
     },
     {
+      "id": "17",
       "name": "Евдокия Филиппова",
-      "role": "Официант",
-      "phone": "+7(877)4503253",
-      "birthday": "03.12.1994",
-      "isArchive": true,
-      "id": "17"
-    },
-    {
-      "id": "3d03",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "72a3",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "de48",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "1ae1",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "dc62",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "2a48",
-      "name": "123123",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21312-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "df8c",
-      "name": "1111",
-      "role": "Повар",
-      "phone": "+7(111)1111111",
-      "birthday": "12.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "88e9",
-      "name": "1111",
-      "role": "Повар",
-      "phone": "+7(111)1111111",
-      "birthday": "12.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "13a8",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "12.10.2024",
-      "isArchive": true
-    },
-    {
-      "id": "873a",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "12.10.2024",
-      "isArchive": true
-    },
-    {
-      "id": "8669",
-      "name": "Арте Артем",
-      "role": "Повар",
-      "phone": "+7(111)1111111",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "dc94",
-      "name": "Арте Артем",
-      "role": "Повар",
-      "phone": "+7(111)1111111",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "2fda",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "12c5",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "cd2c",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "21321-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "64a3",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "21321-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "e367",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "232132-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "8090",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "272e",
-      "name": "13213",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "97bb",
-      "name": "13213",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "ef43",
-      "name": "12321",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.1321",
-      "isArchive": false
-    },
-    {
-      "id": "c44b",
-      "name": "12321",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.1321",
-      "isArchive": false
-    },
-    {
-      "id": "4f46",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213123",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "7155",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213123",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "6331",
-      "name": "321321",
-      "role": "Водитель",
-      "phone": "+7(321)3213321",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "be61",
-      "name": "321321",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0021",
-      "isArchive": false
-    },
-    {
-      "id": "9515",
-      "name": "321312",
-      "role": "Повар",
-      "phone": "+7(321)3213123",
-      "birthday": "12321-12-31",
-      "isArchive": false
-    },
-    {
-      "id": "d983",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "17.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "5ded",
-      "name": "321321",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "23.02.1321",
-      "isArchive": false
-    },
-    {
-      "id": "3940",
-      "name": "321312",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "d116",
-      "name": "321321",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "af13",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "2063",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "33bd",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0021",
-      "isArchive": false
-    },
-    {
-      "id": "fa54",
-      "name": "123",
-      "role": "Повар",
-      "phone": "+7(321)3123213",
-      "birthday": "31.12.0123",
-      "isArchive": false
-    },
-    {
-      "id": "e9f1",
-      "name": "Арте Артем",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "10.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "f9be",
-      "name": "3213214214",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "0860",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "8866",
-      "name": "Арте Артем",
-      "role": "Официант",
-      "phone": "+7(111)1111111",
-      "birthday": "10.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "b2ac",
-      "name": "Арте Артем",
-      "role": "Официант",
-      "phone": "+7(111)1111111",
-      "birthday": "03.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "5769",
-      "name": "321312",
-      "role": "Повар",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "63e7",
-      "name": "32132",
-      "role": "Водитель",
-      "phone": "+7(321)3213213",
-      "birthday": "31.12.0213",
-      "isArchive": false
-    },
-    {
-      "id": "7af5",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "23.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "1b24",
-      "name": "321321",
-      "role": "Официант",
-      "phone": "+7(321)3213213",
-      "birthday": "11.10.2024",
-      "isArchive": false
-    },
-    {
-      "id": "e304",
-      "name": "321321",
-      "role": "Повар",
-      "phone": "+7(313)2132132",
-      "birthday": "31.12.0213",
-      "isArchive": false
+      "isArchive": false,
+      "role": "waiter",
+      "phone": "+7 (877) 450-3253",
+      "birthday": "03.12.1994"
     }
   ]
 }

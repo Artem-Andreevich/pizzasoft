@@ -1,23 +1,20 @@
-import { useRef, useState } from "react";
-import { useDeleteEmployeeMutation, useGetEmployeeByIdQuery, useUpdateEmployeeMutation } from "../../store/api/api";
-import { Tooltip } from "../../ui/Tooltip/Tooltip";
-import { EmployeeForm } from "../EmployeeForm/EmployeeForm";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDeleteEmployeeMutation, useGetEmployeeByIdQuery, useUpdateEmployeeMutation } from "../../store/api/api";
+import { EmployeeForm } from "../EmployeeForm/EmployeeForm";
 import { FormData } from "../EmployeeForm/EmployeeForm" 
-
-
 
 
 export const UpdateEmployee = () => {
 
     const { id = ''} = useParams()
     const navigate = useNavigate();
-    const { data: employee, isSuccess: isGetSuccess } = useGetEmployeeByIdQuery(id)
+    const { data: employee, refetch, isSuccess, isFetching} = useGetEmployeeByIdQuery(id)
+    const [ updateEmployee, { status } ] = useUpdateEmployeeMutation();
     const [ deleteEmployee ] = useDeleteEmployeeMutation()
 
-    const deleteHandler = async (id: string) => {
+    const deleteHandler = (id: string) => {
         try {
-            await deleteEmployee(id)
+            deleteEmployee(id)
         } catch (err) {
             console.error('Ошибка', err)
         } finally {
@@ -25,46 +22,22 @@ export const UpdateEmployee = () => {
         }
     }
 
-    const [ updateEmployee, { isLoading, isSuccess, isError, status } ] = useUpdateEmployeeMutation();
 
-    const [ showTolltip, setShowTooltip ] = useState(false)
-
-
-    const getFormData = async (formData: FormData) =>  {
+    const sendFormData = async (formData: FormData) =>  {
         try {
             await updateEmployee({body: formData, id: employee?.id})
         } catch(error) {
             console.error('Ошибка добавления сотрудника: ', error)
         } finally {
-            toggleTooltip()
+            refetch()
         }
     }
-
-    const refSetTimeout = useRef<NodeJS.Timeout>()
-    
-    const toggleTooltip = () => {
-        setShowTooltip(true)
-
-        refSetTimeout.current = setTimeout(() => {
-            setShowTooltip(false)
-        }, 2000)
-    }
-    
-    let tooltip
-
-    if(showTolltip && isError)
-        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
-    else if(showTolltip && isSuccess)
-        tooltip = <Tooltip timerId={refSetTimeout.current}  className="success">Форма успешно отрпавлена</Tooltip>
 
     
     return (
         <>
-            {isGetSuccess 
-                ? <>
-                    {tooltip}
-                    <EmployeeForm callback={getFormData} defaultValue={employee} disabled={isLoading} status={isSuccess}/>
-                </>
+            {isSuccess && !isFetching
+                ? <EmployeeForm callback={sendFormData} defaultValue={employee} status={status}/>
                 : <div>Загрузка...</div>
             }
             <button 

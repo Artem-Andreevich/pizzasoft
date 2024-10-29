@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
 import { convertDate } from "../../helpers/convertDate/convertDate";
 import { Button} from "../../ui/Button/Button";
 import classNames from "classnames";
+import { Tooltip } from "../../ui/Tooltip/Tooltip";
 
 export interface FormData {
     name: string;
@@ -35,17 +35,37 @@ export interface FormDataPayload {
 interface EmployeeFormProps {
     callback: (data: FormData) => void;
     defaultValue?: IEmployee;
-    disabled?: boolean;
-    status?: boolean;
+    status?: string;
 }
 
 
-export const EmployeeForm = ({defaultValue, callback, disabled, status}: EmployeeFormProps) => {
+export const EmployeeForm = ({defaultValue, callback, status}: EmployeeFormProps) => {
 
     const form = useRef<HTMLFormElement>(null)
+    const [ showTolltip, setShowTooltip ] = useState(false)
+    const refSetTimeout = useRef<NodeJS.Timeout>()
+
     useEffect( () => {
-        form.current?.reset()
+        if(status === 'fulfilled')
+            form.current?.reset()
+        toggleTooltip()
     }, [status])
+
+
+    const toggleTooltip = () => {
+        setShowTooltip(true)
+
+        refSetTimeout.current = setTimeout(() => {
+            setShowTooltip(false)
+        }, 2000)
+    }
+    
+    let tooltip
+    if(showTolltip && status === 'rejected')
+        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
+    else if(showTolltip && status === 'fulfilled')
+        tooltip = <Tooltip timerId={refSetTimeout.current}  className="success">Форма успешно отрпавлена</Tooltip>
+
 
     function submitHandler(event: FormEvent<EmployeeForm>) {
         event.preventDefault()
@@ -53,17 +73,16 @@ export const EmployeeForm = ({defaultValue, callback, disabled, status}: Employe
         const formData: FormData = {
             name: target.name.value.trim(),
             role: target.role.value.trim(),
-            phone: target.phone.value.trim().replace(/ /g,''),
+            phone: target.phone.value.trim(),
             birthday: convertDate(target.birthday.value),
             isArchive: target.archive.checked,
         }
         callback(formData)
-        
     }
 
     return (
         <form 
-            className={classNames("form", {"is-loading": disabled})}
+            className={classNames("form", {"is-loading": status === 'pending'})}
             onSubmit={submitHandler} 
             ref={form}
         >
@@ -86,12 +105,12 @@ export const EmployeeForm = ({defaultValue, callback, disabled, status}: Employe
                     <InputMask 
                         type="tel" 
                         id="phone" 
-                        name="phone" 
-                        defaultValue={defaultValue?.phone} 
-                        pattern="^\+7\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}" 
-                        mask="+7 (999) 999 99 99" 
-                        maskPlaceholder="+7 (___) ___-__-__" 
-                        placeholder="+7 (999) 999 99 99"
+                        name="phone"
+                        defaultValue={defaultValue && defaultValue.phone}
+                        pattern="^\+7\s\(\d{3}\)\s\d{3}-\d{4}" 
+                        mask="+7 (999) 999-9999" 
+                        maskPlaceholder="+7 (___) ___-____" 
+                        placeholder="+7 (999) 999-9999"
                         required 
                     />
                 </label>
@@ -103,7 +122,7 @@ export const EmployeeForm = ({defaultValue, callback, disabled, status}: Employe
                         type="date" 
                         id="birthday" 
                         name="birthday" 
-                        defaultValue={defaultValue?.birthday} 
+                        defaultValue={defaultValue?.birthday}
                         required 
                     />
                 </label>
@@ -114,23 +133,18 @@ export const EmployeeForm = ({defaultValue, callback, disabled, status}: Employe
                     <select
                         name="role" 
                         id="role" 
+                        defaultValue={defaultValue && defaultValue.role}
                         required
                     >
                         <option 
-                            value={defaultValue ? defaultValue.role : ""}
+                            value=''
                             hidden 
-                            // defaultValue={defaultValue ? defaultValue.role : ""}
-                            // selected={defaultValue ? true : false}
                             disabled={defaultValue ? true : false}
                         >Должность</option>
                         {getEnumValues(EmployeeRoleRu).map( value => (
                             <option 
                                 key={value}
-                                // value={defaultValue ? defaultValue.role : ""}
-                                // selected={defaultValue &&  defaultValue?.role === value ? defaultValue?.role : ""}
-                                // selected={defaultValue?.role === value ? defaultValue?.role : ""}
-                                // defaultValue={value}
-                                // selected={defaultValue?.role === value}
+                                defaultValue={defaultValue ? defaultValue.role : ""}
                             >
                                 {value}
                             </option>
@@ -155,11 +169,10 @@ export const EmployeeForm = ({defaultValue, callback, disabled, status}: Employe
             </div>
             
             <div className="form__actions">
-                <Button
-                    className="btn-cta btn-cta--accent"
-                >
+                <Button className="btn-cta btn-cta--accent">
                     <span>Сохранить</span>
                 </Button>
+                {tooltip}
             </div>
             
         </form>
