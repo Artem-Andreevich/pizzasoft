@@ -1,8 +1,9 @@
-# git clone https://github.com/Artem-Andreevich/pizzasoft.git
-
-# git i
-
 # Запуск проекта: 
+
+## git clone https://github.com/Artem-Andreevich/pizzasoft.git
+
+## npm install
+
 ## Запуск json-server
 git bash terminal -> npm run watch
 
