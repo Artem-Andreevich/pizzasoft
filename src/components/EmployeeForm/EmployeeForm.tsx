@@ -5,10 +5,9 @@ import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
 import { convertDate } from "../../helpers/convertDate/convertDate";
 import { Button} from "../../ui/Button/Button";
-import { Tooltip } from "../../ui/Tooltip/Tooltip"
-import { error } from "console";
+import classNames from "classnames";
 
-interface FormData {
+export interface FormData {
     name: string;
     role: string;
     phone: string;
@@ -34,29 +33,21 @@ export interface FormDataPayload {
 }
 
 interface EmployeeFormProps {
-    action: (payload: FormDataPayload) => void,
-    isLoading: boolean,
-    isSuccess?: boolean,
-    isError?: boolean,
-    employee?: IEmployee
+    callback: (data: FormData) => void;
+    defaultValue?: IEmployee;
+    disabled?: boolean;
+    status?: boolean;
 }
 
 
-export const EmployeeForm = (props: EmployeeFormProps) => {
+export const EmployeeForm = ({defaultValue, callback, disabled, status}: EmployeeFormProps) => {
 
-    const { 
-        action, 
-        employee, 
-        isLoading, 
-        isSuccess, 
-        isError 
-    } = props
-
-    const [ showTolltip, setShowTooltip ] = useState(false)
     const form = useRef<HTMLFormElement>(null)
-    const refSetTimeout = useRef<NodeJS.Timeout>()
+    useEffect( () => {
+        form.current?.reset()
+    }, [status])
 
-    async function submitHandler(event: FormEvent<EmployeeForm>) {
+    function submitHandler(event: FormEvent<EmployeeForm>) {
         event.preventDefault()
         const target = event.currentTarget.elements;
         const formData: FormData = {
@@ -66,44 +57,13 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
             birthday: convertDate(target.birthday.value),
             isArchive: target.archive.checked,
         }
-        try {
-            employee 
-                ? await action({body: formData, id: employee.id})
-                : await action({body: formData})
-
-        } catch (err) {
-            throw new Error("321321321312")
-            console.log(err)
-            // toggleTooltip()
-        } finally {
-            if(isSuccess){
-                console.log('suc')
-            }
-            if(isError){
-                console.log('er')
-            }
-            toggleTooltip()
-            isSuccess && form.current?.reset()
-        }
+        callback(formData)
+        
     }
-
-    const toggleTooltip = () => {
-        setShowTooltip(true)
-
-        refSetTimeout.current = setTimeout(() => {
-            setShowTooltip(false)
-        }, 3000)
-    }
-
-    let tooltip
-    if(showTolltip && isError)
-        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
-    else if(showTolltip && isSuccess)
-        tooltip = <Tooltip timerId={refSetTimeout.current} className="success">Форма успешно отрпавлена</Tooltip>
 
     return (
         <form 
-            className="form"
+            className={classNames("form", {"is-loading": disabled})}
             onSubmit={submitHandler} 
             ref={form}
         >
@@ -115,8 +75,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         id="name" 
                         name="name"
                         placeholder="Имя Фамилия"
-                        defaultValue={employee ? employee.name : ""} 
-                        disabled={isLoading || showTolltip}
+                        defaultValue={defaultValue?.name} 
                         required 
                     />
                 </label>
@@ -128,12 +87,11 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         type="tel" 
                         id="phone" 
                         name="phone" 
-                        defaultValue={employee ? employee.phone : ""} 
+                        defaultValue={defaultValue?.phone} 
                         pattern="^\+7\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}" 
                         mask="+7 (999) 999 99 99" 
                         maskPlaceholder="+7 (___) ___-__-__" 
                         placeholder="+7 (999) 999 99 99"
-                        disabled={isLoading || showTolltip}
                         required 
                     />
                 </label>
@@ -145,8 +103,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         type="date" 
                         id="birthday" 
                         name="birthday" 
-                        defaultValue={employee ? employee.birthday : ""} 
-                        disabled={isLoading || showTolltip}
+                        defaultValue={defaultValue?.birthday} 
                         required 
                     />
                 </label>
@@ -157,21 +114,23 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                     <select
                         name="role" 
                         id="role" 
-                        disabled={isLoading || showTolltip}
                         required
                     >
                         <option 
-                            value=""
-                            defaultValue={employee ? employee.role : ""}
+                            value={defaultValue ? defaultValue.role : ""}
                             hidden 
-                            selected 
-                            disabled
+                            // defaultValue={defaultValue ? defaultValue.role : ""}
+                            // selected={defaultValue ? true : false}
+                            disabled={defaultValue ? true : false}
                         >Должность</option>
                         {getEnumValues(EmployeeRoleRu).map( value => (
                             <option 
-                                key={value} 
-                                defaultValue={value}
-                                selected={employee && employee.role === value}
+                                key={value}
+                                // value={defaultValue ? defaultValue.role : ""}
+                                // selected={defaultValue &&  defaultValue?.role === value ? defaultValue?.role : ""}
+                                // selected={defaultValue?.role === value ? defaultValue?.role : ""}
+                                // defaultValue={value}
+                                // selected={defaultValue?.role === value}
                             >
                                 {value}
                             </option>
@@ -185,8 +144,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         type="checkbox" 
                         name="archive" 
                         id="archive" 
-                        defaultChecked={employee ? employee.isArchive : false} 
-                        disabled={isLoading || showTolltip}
+                        defaultChecked={defaultValue?.isArchive} 
                     />
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 0.253167 0.253167">
                         <rect fill="#ED4300" width="0.253167" height="0.253167" rx="0.0506327" ry="0.0506327"></rect>
@@ -199,11 +157,9 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
             <div className="form__actions">
                 <Button
                     className="btn-cta btn-cta--accent"
-                    disabled={isLoading || showTolltip}
                 >
                     <span>Сохранить</span>
                 </Button>
-                {tooltip}
             </div>
             
         </form>

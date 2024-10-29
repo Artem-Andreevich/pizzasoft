@@ -1,6 +1,10 @@
+import { useRef, useState } from "react";
 import { useDeleteEmployeeMutation, useGetEmployeeByIdQuery, useUpdateEmployeeMutation } from "../../store/api/api";
+import { Tooltip } from "../../ui/Tooltip/Tooltip";
 import { EmployeeForm } from "../EmployeeForm/EmployeeForm";
 import { useNavigate, useParams } from "react-router-dom";
+import { FormData } from "../EmployeeForm/EmployeeForm" 
+
 
 
 
@@ -21,17 +25,46 @@ export const UpdateEmployee = () => {
         }
     }
 
-    const [ updateEmployee, { isLoading, isSuccess, isError } ] = useUpdateEmployeeMutation();
+    const [ updateEmployee, { isLoading, isSuccess, isError, status } ] = useUpdateEmployeeMutation();
+
+    const [ showTolltip, setShowTooltip ] = useState(false)
+
+
+    const getFormData = async (formData: FormData) =>  {
+        try {
+            await updateEmployee({body: formData, id: employee?.id})
+        } catch(error) {
+            console.error('Ошибка добавления сотрудника: ', error)
+        } finally {
+            toggleTooltip()
+        }
+    }
+
+    const refSetTimeout = useRef<NodeJS.Timeout>()
+    
+    const toggleTooltip = () => {
+        setShowTooltip(true)
+
+        refSetTimeout.current = setTimeout(() => {
+            setShowTooltip(false)
+        }, 2000)
+    }
+    
+    let tooltip
+
+    if(showTolltip && isError)
+        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
+    else if(showTolltip && isSuccess)
+        tooltip = <Tooltip timerId={refSetTimeout.current}  className="success">Форма успешно отрпавлена</Tooltip>
+
+    
     return (
         <>
             {isGetSuccess 
-                ? <EmployeeForm 
-                    action={updateEmployee} 
-                    isLoading={isLoading} 
-                    isSuccess={isSuccess} 
-                    isError={isError} 
-                    employee={employee} 
-                />
+                ? <>
+                    {tooltip}
+                    <EmployeeForm callback={getFormData} defaultValue={employee} disabled={isLoading} status={isSuccess}/>
+                </>
                 : <div>Загрузка...</div>
             }
             <button 
