@@ -1,19 +1,20 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { useDeleteEmployeeMutation, useGetEmployeeByIdQuery, useUpdateEmployeeMutation } from "../../store/api/api";
 import { EmployeeForm } from "../EmployeeForm/EmployeeForm";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { FormData } from "../EmployeeForm/EmployeeForm" 
 
 
 export const UpdateEmployee = () => {
 
     const { id = ''} = useParams()
     const navigate = useNavigate();
-    const { data: employee, isSuccess: isGetSuccess } = useGetEmployeeByIdQuery(id)
+    const { data: employee, refetch, isSuccess, isFetching} = useGetEmployeeByIdQuery(id)
+    const [ updateEmployee, { status } ] = useUpdateEmployeeMutation();
     const [ deleteEmployee ] = useDeleteEmployeeMutation()
 
-    const deleteHandler = async (id: string) => {
+    const deleteHandler = (id: string) => {
         try {
-            await deleteEmployee(id)
+            deleteEmployee(id)
         } catch (err) {
             console.error('Ошибка', err)
         } finally {
@@ -21,17 +22,22 @@ export const UpdateEmployee = () => {
         }
     }
 
-    const [ updateEmployee, { isLoading, isSuccess, isError } ] = useUpdateEmployeeMutation();
+
+    const sendFormData = async (formData: FormData) =>  {
+        try {
+            await updateEmployee({body: formData, id: employee?.id})
+        } catch(error) {
+            console.error('Ошибка добавления сотрудника: ', error)
+        } finally {
+            refetch()
+        }
+    }
+
+    
     return (
         <>
-            {isGetSuccess 
-                ? <EmployeeForm 
-                    action={updateEmployee} 
-                    isLoading={isLoading} 
-                    isSuccess={isSuccess} 
-                    isError={isError} 
-                    employee={employee} 
-                />
+            {isSuccess && !isFetching
+                ? <EmployeeForm callback={sendFormData} defaultValue={employee} status={status}/>
                 : <div>Загрузка...</div>
             }
             <button 
