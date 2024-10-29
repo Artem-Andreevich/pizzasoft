@@ -20,10 +20,12 @@ export const EmployeesList = ({className = ""}: EmployeesListProps) => {
     const [ roleFilter, setRoleFilter ] = useState<EmployeeRoleRu>()
 
     useEffect( () => {
-        setEmployees(data)
+        if(isSuccess)
+            setEmployees(data)
     }, [isSuccess, data])
 
     useEffect(() => {
+
         let filtered = employees
         if (isArchive) 
             filtered = filtered?.filter(employee => employee.isArchive === true)

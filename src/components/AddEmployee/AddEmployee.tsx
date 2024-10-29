@@ -3,8 +3,13 @@ import { EmployeeForm } from "../EmployeeForm/EmployeeForm";
 
 
 export const AddEmployee = () => {
-    const [ addEmployee, { isLoading } ] = useAddEmployeeMutation();
+    const [ addEmployee, { isLoading, isSuccess, isError } ] = useAddEmployeeMutation()
     return (
-        <EmployeeForm action={addEmployee} isLoading={isLoading} />
+        <EmployeeForm 
+            action={addEmployee} 
+            isLoading={isLoading} 
+            isSuccess={isSuccess} 
+            isError={isError} 
+        />
     )
 }

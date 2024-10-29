@@ -319,6 +319,10 @@
 			color: #fff;
 			background-color: #000;
 		}
+		&:disabled {
+			pointer-events: none;
+			opacity: .3;
+		}
 	}
 }
 .dropdown {
@@ -362,6 +366,26 @@
 		}
 	}
 }
+.tooltip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	height: 40px;
+	padding: 0 12px;
+	font-size: var(--fs-16-14);
+	font-family: $semi;
+	border-radius: var(--border-radius-8);
+
+	&.success {
+		color: #fff;
+		background-color: var(--accent-color);
+	}
+	&.error {
+		color: #fff;
+		background-color: #d58484;
+	}
+}
 
 /* ENTITIES */
 .employee-item {
@@ -403,6 +427,11 @@
 	background-color: #fff;
 	border-radius: var(--border-radius-16);
 	box-shadow: var(--shadow);
+	&__actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 }
 .form-control {
 
@@ -414,10 +443,17 @@
 		border: 2px solid var(--dark-grey);
 		border-radius: var(--border-radius-8);
 		transition: $trans;
-		&:focus, &:hover {
-			box-shadow: none;
-			outline: none;
-			border-color: var(--main-color);
+		&:not(:disabled) {
+			&:focus, &:hover {
+				box-shadow: none;
+				outline: none;
+				border-color: var(--main-color);
+			}
+		}
+
+		&:disabled {
+			pointer-events: none;
+			opacity: .3;
 		}
 	}
 	label {

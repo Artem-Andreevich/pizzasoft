@@ -1,10 +1,12 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
 import { convertDate } from "../../helpers/convertDate/convertDate";
 import { Button} from "../../ui/Button/Button";
+import { Tooltip } from "../../ui/Tooltip/Tooltip"
+import { error } from "console";
 
 interface FormData {
     name: string;
@@ -34,17 +36,27 @@ export interface FormDataPayload {
 interface EmployeeFormProps {
     action: (payload: FormDataPayload) => void,
     isLoading: boolean,
+    isSuccess?: boolean,
+    isError?: boolean,
     employee?: IEmployee
 }
 
 
 export const EmployeeForm = (props: EmployeeFormProps) => {
 
-    const { action, isLoading, employee} = props
-    const navigate = useNavigate();
-    const form = useRef<any>()
+    const { 
+        action, 
+        employee, 
+        isLoading, 
+        isSuccess, 
+        isError 
+    } = props
 
-    function submitHandler(event: FormEvent<EmployeeForm>) {
+    const [ showTolltip, setShowTooltip ] = useState(false)
+    const form = useRef<HTMLFormElement>(null)
+    const refSetTimeout = useRef<NodeJS.Timeout>()
+
+    async function submitHandler(event: FormEvent<EmployeeForm>) {
         event.preventDefault()
         const target = event.currentTarget.elements;
         const formData: FormData = {
@@ -56,14 +68,39 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
         }
         try {
             employee 
-                ? action({body: formData, id: employee.id})
-                : action({body: formData})
+                ? await action({body: formData, id: employee.id})
+                : await action({body: formData})
+
         } catch (err) {
-            console.error('Ошибка добовления сотрудника', err)
+            throw new Error("321321321312")
+            console.log(err)
+            // toggleTooltip()
         } finally {
-            navigate(`/`)
+            if(isSuccess){
+                console.log('suc')
+            }
+            if(isError){
+                console.log('er')
+            }
+            toggleTooltip()
+            isSuccess && form.current?.reset()
         }
     }
+
+    const toggleTooltip = () => {
+        setShowTooltip(true)
+
+        refSetTimeout.current = setTimeout(() => {
+            setShowTooltip(false)
+        }, 3000)
+    }
+
+    let tooltip
+    if(showTolltip && isError)
+        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
+    else if(showTolltip && isSuccess)
+        tooltip = <Tooltip timerId={refSetTimeout.current} className="success">Форма успешно отрпавлена</Tooltip>
+
     return (
         <form 
             className="form"
@@ -79,6 +116,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         name="name"
                         placeholder="Имя Фамилия"
                         defaultValue={employee ? employee.name : ""} 
+                        disabled={isLoading || showTolltip}
                         required 
                     />
                 </label>
@@ -95,6 +133,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         mask="+7 (999) 999 99 99" 
                         maskPlaceholder="+7 (___) ___-__-__" 
                         placeholder="+7 (999) 999 99 99"
+                        disabled={isLoading || showTolltip}
                         required 
                     />
                 </label>
@@ -107,6 +146,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         id="birthday" 
                         name="birthday" 
                         defaultValue={employee ? employee.birthday : ""} 
+                        disabled={isLoading || showTolltip}
                         required 
                     />
                 </label>
@@ -117,10 +157,12 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                     <select
                         name="role" 
                         id="role" 
+                        disabled={isLoading || showTolltip}
                         required
                     >
                         <option 
-                            defaultValue={employee ? employee.role : ""} 
+                            value=""
+                            defaultValue={employee ? employee.role : ""}
                             hidden 
                             selected 
                             disabled
@@ -129,9 +171,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                             <option 
                                 key={value} 
                                 defaultValue={value}
-                                selected={
-                                    employee && employee.role === value
-                                }
+                                selected={employee && employee.role === value}
                             >
                                 {value}
                             </option>
@@ -146,6 +186,7 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                         name="archive" 
                         id="archive" 
                         defaultChecked={employee ? employee.isArchive : false} 
+                        disabled={isLoading || showTolltip}
                     />
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 0.253167 0.253167">
                         <rect fill="#ED4300" width="0.253167" height="0.253167" rx="0.0506327" ry="0.0506327"></rect>
@@ -155,12 +196,16 @@ export const EmployeeForm = (props: EmployeeFormProps) => {
                 </label>
             </div>
             
-            <Button
-                className="btn-cta btn-cta--accent"
-                disabled={isLoading}
-            >
-                <span>Сохранить</span>
-            </Button>
+            <div className="form__actions">
+                <Button
+                    className="btn-cta btn-cta--accent"
+                    disabled={isLoading || showTolltip}
+                >
+                    <span>Сохранить</span>
+                </Button>
+                {tooltip}
+            </div>
+            
         </form>
     )
 }
