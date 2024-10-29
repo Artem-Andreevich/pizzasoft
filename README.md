@@ -3,7 +3,6 @@
 # git i
 
 # Запуск проекта: 
-
 ## Запуск json-server
 git bash terminal -> npm run watch
 
