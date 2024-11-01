@@ -18,6 +18,6 @@ export const AddEmployee = () => {
     }
 
     return (
-        <EmployeeForm callback={sendFormData} status={status}/>
+        <EmployeeForm sendFormData={sendFormData} status={status}/>
     )
 }

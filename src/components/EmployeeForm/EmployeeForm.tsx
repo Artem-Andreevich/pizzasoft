@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef } from "react";
 import InputMask from "react-input-mask";
 import { EmployeeRoleRu, IEmployee } from "../../types/Employee/Employee";
 import { getEnumValues } from "../../helpers/getEnumValues/getEnumValues";
@@ -6,6 +6,7 @@ import { convertDate } from "../../helpers/convertDate/convertDate";
 import { Button} from "../../ui/Button/Button";
 import classNames from "classnames";
 import { Tooltip } from "../../ui/Tooltip/Tooltip";
+import { useToolptipTimer } from "../../hooks/useTooltipTimer";
 
 export interface FormData {
     name: string;
@@ -33,38 +34,29 @@ export interface FormDataPayload {
 }
 
 interface EmployeeFormProps {
-    callback: (data: FormData) => void;
+    sendFormData: (data: FormData) => void;
     defaultValue?: IEmployee;
     status?: string;
 }
 
 
-export const EmployeeForm = ({defaultValue, callback, status}: EmployeeFormProps) => {
+export const EmployeeForm = ({defaultValue, sendFormData, status}: EmployeeFormProps) => {
 
     const form = useRef<HTMLFormElement>(null)
-    const [ showTolltip, setShowTooltip ] = useState(false)
-    const refSetTimeout = useRef<NodeJS.Timeout>()
+    const [isShowTooltip, toggleShowTooltip, refTimeout] = useToolptipTimer()
 
     useEffect( () => {
         if(status === 'fulfilled')
             form.current?.reset()
-        toggleTooltip()
+        toggleShowTooltip()
     }, [status])
 
 
-    const toggleTooltip = () => {
-        setShowTooltip(true)
-
-        refSetTimeout.current = setTimeout(() => {
-            setShowTooltip(false)
-        }, 2000)
-    }
-    
     let tooltip
-    if(showTolltip && status === 'rejected')
-        tooltip = <Tooltip timerId={refSetTimeout.current} className="error">Не удалось отправить данные</Tooltip>
-    else if(showTolltip && status === 'fulfilled')
-        tooltip = <Tooltip timerId={refSetTimeout.current}  className="success">Форма успешно отрпавлена</Tooltip>
+    if(isShowTooltip && status === 'rejected')
+        tooltip = <Tooltip timerId={refTimeout} className="error">Не удалось отправить данные</Tooltip>
+    else if(isShowTooltip && status === 'fulfilled')
+        tooltip = <Tooltip timerId={refTimeout}  className="success">Форма успешно отрпавлена</Tooltip>
 
 
     function submitHandler(event: FormEvent<EmployeeForm>) {
@@ -77,7 +69,7 @@ export const EmployeeForm = ({defaultValue, callback, status}: EmployeeFormProps
             birthday: convertDate(target.birthday.value),
             isArchive: target.archive.checked,
         }
-        callback(formData)
+        sendFormData(formData)
     }
 
     return (

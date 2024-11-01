@@ -37,7 +37,7 @@ export const UpdateEmployee = () => {
     return (
         <>
             {isSuccess && !isFetching
-                ? <EmployeeForm callback={sendFormData} defaultValue={employee} status={status}/>
+                ? <EmployeeForm sendFormData={sendFormData} defaultValue={employee} status={status}/>
                 : <div>Загрузка...</div>
             }
             <button 
